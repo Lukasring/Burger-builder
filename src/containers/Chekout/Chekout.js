@@ -21,7 +21,7 @@ class Checkout extends Component {
       }
     }
     console.log(ingredients);
-    this.setState({ ingredients: ingredients, totalPrice: price.toFixed(2) });
+    this.setState({ ingredients: ingredients, totalPrice: price });
   }
 
   checkoutCancelledHandler = () => {
@@ -46,7 +46,9 @@ class Checkout extends Component {
           render={(props) => (
             <ContactData
               ingredients={this.state.ingredients}
-              price={this.state.totalPrice}
+              price={
+                this.state.totalPrice ? this.state.totalPrice.toFixed(2) : null
+              }
               {...props}
             />
           )}
