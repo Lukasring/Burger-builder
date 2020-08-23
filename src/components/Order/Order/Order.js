@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Order.module.css";
+import Button from "../../UI/Button/Button";
 
 const order = (props) => {
   const ingredients = [];
@@ -33,6 +34,9 @@ const order = (props) => {
       <p>
         Price: <strong>€{props.price}</strong>
       </p>
+      <Button btnType="Danger" clicked={props.delete}>
+        Delete
+      </Button>
     </div>
   );
 };
