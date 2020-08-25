@@ -11,3 +11,5 @@ export {
   fetchOrders,
   deleteOrder,
 } from "./order";
+
+export { auth } from "./auth";
