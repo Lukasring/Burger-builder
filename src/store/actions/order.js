@@ -1,12 +1,12 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData, token) => {
   return (dispatch) => {
     // console.log("purchase burger...");
     dispatch(purchaseBurgerStart());
     axios
-      .post("/orders.json", orderData)
+      .post("/orders.json?auth=" + token, orderData)
       .then((res) => {
         // console.log("order response...");
         // console.log(res);
@@ -67,11 +67,11 @@ export const fetchOrdersStart = () => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
   return (dispatch) => {
     dispatch(fetchOrdersStart());
     axios
-      .get("orders.json")
+      .get("orders.json?auth=" + token)
       .then((res) => {
         const fetchedOrders = [];
         for (let key in res.data) {
@@ -101,10 +101,10 @@ export const deleteOrderFail = (error) => {
   };
 };
 
-export const deleteOrder = (orderId) => {
+export const deleteOrder = (orderId, token) => {
   return (dispatch) => {
     axios
-      .delete(`/orders/${orderId}.json`)
+      .delete(`/orders/${orderId}.json?auth=${token}`)
       .then((res) => {
         dispatch(deleteOrderSuccess(orderId));
         console.log(res);

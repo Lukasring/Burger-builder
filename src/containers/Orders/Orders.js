@@ -9,7 +9,7 @@ import Order from "../../components/Order/Order/Order";
 
 class Orders extends Component {
   componentDidMount() {
-    this.props.onFetchOrders();
+    this.props.onFetchOrders(this.props.token);
   }
 
   // componentDidUpdate() {
@@ -18,7 +18,7 @@ class Orders extends Component {
 
   deleteOrderHandler = (orderId) => {
     console.log("Deleting...");
-    this.props.onDeleteOrder(orderId);
+    this.props.onDeleteOrder(orderId, this.props.token);
   };
 
   render() {
@@ -41,13 +41,15 @@ const mapStateToProps = (state) => {
   return {
     loading: state.order.loading,
     orders: state.order.orders,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchOrders: () => dispatch(actions.fetchOrders()),
-    onDeleteOrder: (orderId) => dispatch(actions.deleteOrder(orderId)),
+    onFetchOrders: (token) => dispatch(actions.fetchOrders(token)),
+    onDeleteOrder: (orderId, token) =>
+      dispatch(actions.deleteOrder(orderId, token)),
   };
 };
 
