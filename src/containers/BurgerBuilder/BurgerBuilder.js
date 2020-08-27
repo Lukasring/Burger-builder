@@ -17,15 +17,12 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    console.log("[BurgerBuilder] component did mount..");
-    console.log(this.props);
     // if (!this.props.building) {
     this.props.onInitIngredients();
     // }
   }
 
   updatePurchaseState = (ingredients) => {
-    // const ingredients = { ...this.state.ingredients };
     return Object.values(ingredients).some((amount) => amount > 0);
   };
 
@@ -124,7 +121,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(BurgerBuilder);
 export default connect(
   mapStateToProps,
   mapDispatchToProps

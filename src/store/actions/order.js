@@ -3,17 +3,13 @@ import axios from "../../axios-orders";
 
 export const purchaseBurger = (orderData, token) => {
   return (dispatch) => {
-    // console.log("purchase burger...");
     dispatch(purchaseBurgerStart());
     axios
       .post("/orders.json?auth=" + token, orderData)
       .then((res) => {
-        // console.log("order response...");
-        // console.log(res);
         dispatch(purchaseBurgerSuccess(res.data.name, orderData));
       })
       .catch((err) => {
-        // console.log("order error...");
         console.log(err);
         dispatch(purchaseBurgerFail(err));
       });
@@ -82,7 +78,6 @@ export const fetchOrders = (token, userId) => {
           });
         }
         dispatch(fetchOrdersSuccess(fetchedOrders));
-        console.log(fetchedOrders);
       })
       .catch((error) => fetchOrdersFail(error));
   };
@@ -108,7 +103,6 @@ export const deleteOrder = (orderId, token) => {
       .delete(`/orders/${orderId}.json?auth=${token}`)
       .then((res) => {
         dispatch(deleteOrderSuccess(orderId));
-        console.log(res);
       })
       .catch((err) => dispatch(deleteOrderFail(err)));
   };

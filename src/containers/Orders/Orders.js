@@ -17,13 +17,11 @@ class Orders extends Component {
   // }
 
   deleteOrderHandler = (orderId) => {
-    console.log("Deleting...");
     this.props.onDeleteOrder(orderId, this.props.token);
   };
 
   render() {
     let orders = <Spinner />;
-    console.log("orders render..");
     if (!this.props.loading) {
       orders = this.props.orders.map((order) => (
         <Order
