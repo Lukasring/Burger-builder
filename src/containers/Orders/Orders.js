@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import { connect } from "react-redux";
@@ -7,37 +7,32 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 
 import Order from "../../components/Order/Order/Order";
 
-class Orders extends Component {
-  componentDidMount() {
-    this.props.onFetchOrders(this.props.token, this.props.userId);
-  }
+const Orders = (props) => {
+  const { onFetchOrders, token, userId } = props;
+  useEffect(() => {
+    onFetchOrders(token, userId);
+  }, [onFetchOrders, token, userId]);
 
-  // componentDidUpdate() {
-  //   this.props.onFetchOrders();
-  // }
-
-  deleteOrderHandler = (orderId) => {
-    this.props.onDeleteOrder(orderId, this.props.token);
+  const deleteOrderHandler = (orderId) => {
+    props.onDeleteOrder(orderId, token);
   };
 
-  render() {
-    let orders = <Spinner />;
-    if (!this.props.loading) {
-      orders = this.props.orders.map((order) => (
-        <Order
-          key={order.id}
-          ingredients={order.ingredients}
-          price={order.price}
-          delete={() => this.deleteOrderHandler(order.id)}
-        />
-      ));
-    }
-    if (!this.props.loading && this.props.orders.length === 0) {
-      orders = <p style={{ textAlign: "center" }}>There are no orders!</p>;
-    }
-    return <div>{orders}</div>;
+  let orders = <Spinner />;
+  if (!props.loading) {
+    orders = props.orders.map((order) => (
+      <Order
+        key={order.id}
+        ingredients={order.ingredients}
+        price={order.price}
+        delete={() => deleteOrderHandler(order.id)}
+      />
+    ));
   }
-}
+  if (!props.loading && props.orders.length === 0) {
+    orders = <p style={{ textAlign: "center" }}>There are no orders!</p>;
+  }
+  return <div>{orders}</div>;
+};
 
 const mapStateToProps = (state) => {
   return {
