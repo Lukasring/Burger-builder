@@ -9,6 +9,12 @@ export function* initIngredients(action) {
     );
     yield put(actions.setIngredients(response.data));
   } catch (error) {
-    yield put(actions.fetchIngredientsFailed());
+    //! get request will always fail because firebase is deleted.
+    //! ingriedients are hardcoded now.
+    yield put(
+      actions.setIngredients({ salad: 0, bacon: 0, cheese: 0, meat: 0 })
+    );
+
+    // yield put(actions.fetchIngredientsFailed());
   }
 }
